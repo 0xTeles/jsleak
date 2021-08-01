@@ -9,6 +9,7 @@ jsleak [URL] [patterns.txt]
 - [ ] Fix output
 - [ ] Add more patterns
 - [ ] Fix errors
+- [ ] Implement JSON input
 - [x] Fix patterns
 - [x] Implement PCRE
 
