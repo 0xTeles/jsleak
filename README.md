@@ -19,3 +19,6 @@ jsleak [URL] [patterns.txt]
 - Necessity
 - https://github.com/0x240x23elu/JSScanner
 - https://github.com/KaioGomesx/JSScanner
+### Thank you
+@fepame
+@gustavorobertux
