@@ -7,6 +7,7 @@ jsleak [URL] [patterns.txt]
 - [ ] Fix output
 - [ ] Add more patterns
 - [ ] Fix errors
+- [ ] Fix patterns
 
 ### Regex list
 - https://github.com/odomojuli/RegExAPI
