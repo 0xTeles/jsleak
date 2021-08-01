@@ -3,6 +3,9 @@
 go get github.com/0xTeles/jsleak
 jsleak [URL] [patterns.txt]
 ```
+### Warning
+Golang  don't support PCRE, I am implemeting a solution for the code. 
+
 ### To Do
 - [ ] Fix output
 - [ ] Add more patterns
