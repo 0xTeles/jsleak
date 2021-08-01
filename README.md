@@ -4,8 +4,6 @@ sudo apt-get install pkg-config libpcre++-dev
 go get github.com/0xTeles/jsleak/v2/jsleak
 jsleak [URL] [patterns.txt]
 ```
-### Warning
-Golang  don't support PCRE, I am implemeting a solution for the code. 
 
 ### To Do
 - [ ] Fix output
