@@ -1,7 +1,7 @@
 ### How to Use
 ```
 sudo apt-get install pkg-config libpcre++-dev
-go get github.com/0xTeles/jsleak
+go get github.com/0xTeles/v2/jsleak
 jsleak [URL] [patterns.txt]
 ```
 ### Warning
