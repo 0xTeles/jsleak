@@ -1,6 +1,6 @@
 ### How to Use
 ```
-go get ...
+go get github.com/0xTeles/jsleak
 jsleak [URL] [patterns.txt]
 ```
 ### To Do
