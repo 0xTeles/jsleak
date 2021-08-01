@@ -1,5 +1,6 @@
 ### How to Use
 ```
+sudo apt-get install pkg-config libpcre++-dev
 go get github.com/0xTeles/jsleak
 jsleak [URL] [patterns.txt]
 ```
@@ -10,8 +11,8 @@ Golang  don't support PCRE, I am implemeting a solution for the code.
 - [ ] Fix output
 - [ ] Add more patterns
 - [ ] Fix errors
-- [ ] Fix patterns
-- [ ] Implement PCRE
+- [x] Fix patterns
+- [x] Implement PCRE
 
 ### Regex list
 - https://github.com/odomojuli/RegExAPI
