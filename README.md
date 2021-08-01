@@ -8,6 +8,7 @@ jsleak [URL] [patterns.txt]
 - [ ] Add more patterns
 - [ ] Fix errors
 - [ ] Fix patterns
+- [ ] Implement PCRE
 
 ### Regex list
 - https://github.com/odomojuli/RegExAPI
