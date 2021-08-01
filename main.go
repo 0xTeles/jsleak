@@ -8,14 +8,14 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
+	"github.com/gijsbers/go-pcre"
 )
 
 func getLeak(url string, data string, pattern string){
-	re := regexp.MustCompile(pattern)
-	all := re.FindAllStringSubmatch(data, -1)
-	for _, element := range all {
-		fmt.Println("[+] Match:", pattern, "-", element[0], "-",url)
+	re := pcre.MustCompile(pattern,0)
+	matches := re.MatcherString(data,0).Matches()
+	if matches{
+		fmt.Println("[+] Match:", matches, "-",pattern,"-", url)
 	}
 }
 
