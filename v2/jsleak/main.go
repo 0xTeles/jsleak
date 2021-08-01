@@ -36,8 +36,21 @@ func req(url string) string {
 
 
 func main(){
-	url := os.Args[1]
-	path := os.Args[2]
+
+	var url, path string 
+
+	if len(os.Args) > 1 {
+
+		url = os.Args[1]
+		path = os.Args[2]
+
+	} else {
+
+		fmt.Println("[+] It is necessary to set the URL and the file with the regexs.")
+	    os.Exit(0)
+
+	}
+
 	file, err := os.Open(path)
 	if err != nil{
 		log.Fatal(err)
