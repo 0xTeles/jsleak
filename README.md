@@ -21,4 +21,5 @@ jsleak [URL] [patterns.txt]
 - https://github.com/KaioGomesx/JSScanner
 ### Thanks
 @fepame
+
 @gustavorobertux
