@@ -24,7 +24,7 @@ Usage of jsleak:
 jsleak -url http://localhost/index.js -pattern regex.txt
 [+] Url: http://localhost/index.js
 [+] Pattern: p([a-z]+)ch
-[+] Match: secret_data=peach
+[+] Match: peach
 ```
 
 
