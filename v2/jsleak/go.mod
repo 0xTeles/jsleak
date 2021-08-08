@@ -1,4 +1,4 @@
-module jsleak
+module github.com/0xTeles/jsleak/v2/jsleak
 
 go 1.16
 
