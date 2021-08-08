@@ -8,15 +8,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"flag"
 	"github.com/gijsbers/go-pcre"
 )
 
 func getLeak(url string, data string, pattern string){
 	re := pcre.MustCompile(pattern,0)
-	matches := re.MatcherString(data,0).Matches()
-	if matches{
-		fmt.Println("[+] Match:", matches, "-",pattern,"-", url)
-	}
+	matches := re.MatcherString(data,0).ExtractString()
+	fmt.Printf("[+] Url: %v\n[+] Pattern: %v\n[+] Match: %v", url,pattern,matches[0])
 }
 
 func req(url string) string {
@@ -34,31 +33,23 @@ func req(url string) string {
 	return string(data)
 }
 
-
 func main(){
-
-	var url, path string 
-
-	if len(os.Args) > 1 {
-
-		url = os.Args[1]
-		path = os.Args[2]
-
-	} else {
-
-		fmt.Println("[+] It is necessary to set the URL and the file with the regexs.\n[+] jsleak [URL] [patterns.txt]")
-	    os.Exit(0)
-
+	url := flag.String("url", "", "JS endpoint to test")
+	path := flag.String("pattern", "", "File contains patterns to test")
+	flag.Parse()
+	if *url == ""{
+		flag.PrintDefaults()
+		os.Exit(1)
 	}
 
-	file, err := os.Open(path)
+	file, err := os.Open(*path)
 	if err != nil{
 		log.Fatal(err)
 	}
-	data := req(url)
+	data := req(*url)
 	defer file.Close()
 	pattern := bufio.NewScanner(file)
 	for pattern.Scan(){
-		getLeak(url,data,pattern.Text())
+		getLeak(*url,data,pattern.Text())
 	}
 }
