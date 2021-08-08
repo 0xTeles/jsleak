@@ -15,7 +15,7 @@ import (
 func getLeak(url string, data string, pattern string){
 	re := pcre.MustCompile(pattern,0)
 	matches := re.MatcherString(data,0).Group(0)
-	fmt.Println(len(matches))
+	//fmt.Println(len(matches))
 	if (len(matches) != 0){
 		fmt.Printf("[+] Url: %v\n[+] Pattern: %v\n[+] Match: %v\n", url,pattern,string(matches))
 	}
