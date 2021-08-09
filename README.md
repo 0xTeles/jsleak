@@ -31,7 +31,7 @@ jsleak -url http://localhost/index.js -pattern regex.txt
 ### To Do
 - [x] Fix output
 - [ ] Add more patterns
-- [ ] Add stdin
+- [x] Add stdin
 - [ ] Implement JSON input
 - [x] Fix patterns
 - [x] Implement PCRE
@@ -44,4 +44,4 @@ jsleak -url http://localhost/index.js -pattern regex.txt
 - https://github.com/0x240x23elu/JSScanner
 - https://github.com/KaioGomesx/JSScanner
 ### Thanks
-[@fepame](https://twitter.com/Highustavo), [@gustavorobertux](https://twitter.com/gustavorobertux)
+[@fepame](https://twitter.com/Highustavo), [@gustavorobertux](https://twitter.com/gustavorobertux), [@Jhounx](https://github.com/Jhounx), [@arthurair_es](https://twitter.com/arthurair_es)
