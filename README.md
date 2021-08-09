@@ -13,15 +13,17 @@ Compiled:  [release page](https://github.com/0xTeles/jsleak/releases/tag/jsleak_
 ### How to use
 ```
 Usage of jsleak:
+  -json string
+        [+] Json output file
   -pattern string
-        File contains patterns to test
-  -url string
-        JS endpoint to test
+        [+] File contains patterns to test
+  -verbose
+        [+] Verbose Mode
 ```
 ### Demo
 
 ```
-jsleak -url http://localhost/index.js -pattern regex.txt
+cat urls.txt | jsleak -pattern regex.txt
 [+] Url: http://localhost/index.js
 [+] Pattern: p([a-z]+)ch
 [+] Match: peach
