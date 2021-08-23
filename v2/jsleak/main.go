@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 	"strings"
 
 	"github.com/gijsbers/go-pcre"
@@ -48,11 +49,14 @@ func get_inputs() []string {
 	return strings.Fields(string(output))
 }
 
-func req(url string) string {
+func req(url string, timeout int) string {
 	transCfg := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
 	}
-	client := &http.Client{Transport: transCfg}
+	client := &http.Client{
+		Transport: transCfg,
+		Timeout: time.Duration(timeout) * time.Second,
+	}
 	res, err := client.Get(url)
 
 	if err != nil {
@@ -67,8 +71,9 @@ func main() {
 	path := flag.String("pattern", "", "[+] File contains patterns to test")
 	verbose := flag.Bool("verbose", false, "[+] Verbose Mode")
 	jsonOutput := flag.String("json", "", "[+] Json output file")
+	timeout := flag.Int("timeout", 5, "[+] Timeout for request in seconds")
 	flag.Parse()
-
+	
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) != 0 {
 		fmt.Println("[+] Use in Pipeline")
@@ -94,7 +99,7 @@ func main() {
 			fmt.Println("[-] Looking: " + url)
 		}
 
-		data := req(url)
+		data := req(url,*timeout)
 
 		for _, pattern := range lines {
 			getLeak(url, data, pattern, &jsonArray)
