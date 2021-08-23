@@ -26,7 +26,7 @@ type JsonReturn struct {
 func getLeak(url string, data string, pattern string, jsonArray *[]JsonReturn) {
 	re := pcre.MustCompile(pattern, 0)
 	matches := re.MatcherString(data, 0).Group(0)
-	//fmt.Println(len(matches))
+
 	if len(matches) != 0 {
 		fmt.Printf("[+] Url: %v\n[+] Pattern: %v\n[+] Match: %v\n", url, pattern, string(matches))
 		jsn := JsonReturn{url, pattern, string(matches)}
@@ -73,7 +73,7 @@ func main() {
 	jsonOutput := flag.String("json", "", "[+] Json output file")
 	timeout := flag.Int("timeout", 5, "[+] Timeout for request in seconds")
 	flag.Parse()
-	
+
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) != 0 {
 		fmt.Println("[+] Use in Pipeline")
