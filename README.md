@@ -12,11 +12,12 @@ Compiled:  [release page](https://github.com/0xTeles/jsleak/releases/tag/jsleak_
 
 ### How to use
 ```
-Usage of jsleak:
-  -json string
+-json string
         [+] Json output file
   -pattern string
         [+] File contains patterns to test
+  -timeout int
+        [+] Timeout for request in seconds (default 5)
   -verbose
         [+] Verbose Mode
 ```
