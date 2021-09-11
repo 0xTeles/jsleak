@@ -7,14 +7,13 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
-	"time"
 	"strings"
+	"time"
 
 	"github.com/gijsbers/go-pcre"
+	"github.com/valyala/fasthttp"
 )
 
 type JsonReturn struct {
@@ -49,13 +48,14 @@ func get_inputs() []string {
 	return strings.Fields(string(output))
 }
 
-func req(url string, timeout int) string {
+/*
+func reqhttp(url string, timeout int) string {
 	transCfg := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
 	}
 	client := &http.Client{
 		Transport: transCfg,
-		Timeout: time.Duration(timeout) * time.Second,
+		Timeout:   time.Duration(timeout) * time.Second,
 	}
 	res, err := client.Get(url)
 
@@ -66,6 +66,21 @@ func req(url string, timeout int) string {
 	res.Body.Close()
 	return string(data)
 }
+*/
+
+func reqhttp(url string, c *fasthttp.Client) string {
+	req := fasthttp.AcquireRequest()
+	resp := fasthttp.AcquireResponse()
+	defer fasthttp.ReleaseRequest(req)
+	defer fasthttp.ReleaseResponse(resp)
+
+	req.SetRequestURI(url)
+
+	c.Do(req, resp)
+
+	return string(resp.Body())
+
+}
 
 func main() {
 	path := flag.String("pattern", "", "[+] File contains patterns to test")
@@ -73,7 +88,7 @@ func main() {
 	jsonOutput := flag.String("json", "", "[+] Json output file")
 	timeout := flag.Int("timeout", 5, "[+] Timeout for request in seconds")
 	flag.Parse()
-	
+
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) != 0 {
 		fmt.Println("[+] Use in Pipeline")
@@ -94,12 +109,20 @@ func main() {
 		log.Fatal(err)
 	}
 
+	c := &fasthttp.Client{
+		Name: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36",
+		TLSConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+		MaxConnWaitTimeout: time.Duration(*timeout) * time.Second,
+	}
+
 	for _, url := range get_inputs() {
 		if *verbose {
 			fmt.Println("[-] Looking: " + url)
 		}
 
-		data := req(url,*timeout)
+		data := reqhttp(url, c)
 
 		for _, pattern := range lines {
 			getLeak(url, data, pattern, &jsonArray)
