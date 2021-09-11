@@ -7,7 +7,9 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -48,8 +50,7 @@ func get_inputs() []string {
 	return strings.Fields(string(output))
 }
 
-/*
-func reqhttp(url string, timeout int) string {
+func reqhttp_old(url string, timeout int) string {
 	transCfg := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
 	}
@@ -66,7 +67,6 @@ func reqhttp(url string, timeout int) string {
 	res.Body.Close()
 	return string(data)
 }
-*/
 
 func reqhttp(url string, c *fasthttp.Client) string {
 	req := fasthttp.AcquireRequest()
