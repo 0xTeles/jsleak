@@ -79,7 +79,7 @@ func reqhttp(url string, c *fasthttp.Client) string {
 	c.Do(req, resp)
 
 	return string(resp.Body())
-
+	resp.Body.Close()
 }
 
 func main() {
