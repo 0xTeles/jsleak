@@ -30,15 +30,6 @@ cat urls.txt | jsleak -pattern regex.txt
 [+] Match: peach
 ```
 
-
-### To Do
-- [x] Fix output
-- [ ] Add more patterns
-- [x] Add stdin
-- [ ] Implement JSON input
-- [x] Fix patterns
-- [x] Implement PCRE
-
 ### Regex list
 - https://github.com/odomojuli/RegExAPI
 - https://github.com/KaioGomesx/JSScanner/blob/main/regex.txt
