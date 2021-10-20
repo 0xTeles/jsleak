@@ -14,11 +14,11 @@ Compiled:  [release page](https://github.com/0xTeles/jsleak/releases/tag/jsleak_
 ```
 -json string
         [+] Json output file
-  -pattern string
+-pattern string
         [+] File contains patterns to test
-  -timeout int
+-timeout int
         [+] Timeout for request in seconds (default 5)
-  -verbose
+-verbose
         [+] Verbose Mode
 ```
 ### Demo

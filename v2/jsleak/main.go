@@ -24,14 +24,37 @@ type JsonReturn struct {
 	Match   string
 }
 
-func getLeak(url string, data string, pattern string, jsonArray *[]JsonReturn) {
-	re := pcre.MustCompile(pattern, 0)
-	matches := re.MatcherString(data, 0).Group(0)
-	//fmt.Println(len(matches))
-	if len(matches) != 0 {
-		fmt.Printf("[+] Url: %v\n[+] Pattern: %v\n[+] Match: %v\n", url, pattern, string(matches))
-		jsn := JsonReturn{url, pattern, string(matches)}
-		*jsonArray = append(*jsonArray, jsn)
+func getLeak(url string, data string, c_patterns []pcre.Regexp, raw_patterns []string, jsonArray *[]JsonReturn) {
+	
+	for i,pattern := range c_patterns {
+
+		// Match function
+		regex_ := func(i int, pattern pcre.Regexp, data_i *string) (bool){
+			data_b := *data_i
+			matches := pattern.MatcherString(data_b, 0)
+			matches_index := matches.Index()
+			matches_str := matches.GroupString(0)
+
+			if len(matches_str) != 0 {
+				fmt.Printf("[+] Url: %v\n[+] Pattern: %v\n[+] Match: %v\n", url, raw_patterns[i], matches_str)
+				
+				//JSON Output
+				jsn := JsonReturn{url, raw_patterns[i], matches_str}
+				*jsonArray = append(*jsonArray, jsn)
+				
+				//Remove match value from data
+				data_b = (data_b[:matches_index[0]]+data_b[matches_index[1]:]) 
+				*data_i = data_b
+				return true
+
+			}else {
+				return false
+			}
+		}
+
+		// Loop same pattern until find no more 
+		for regex_(i,pattern, &data) { fmt.Printf("") }
+		
 	}
 }
 
@@ -101,8 +124,15 @@ func main() {
 
 	patterns := bufio.NewScanner(file)
 	jsonArray := make([]JsonReturn, 1)
+
 	for patterns.Scan() {
 		lines = append(lines, patterns.Text())
+	}
+
+	// Compile all patterns
+	c_patterns := []pcre.Regexp{}
+	for _, pattern := range lines {
+		c_patterns = append(c_patterns, pcre.MustCompile(pattern, 0))
 	}
 
 	if err != nil {
@@ -122,11 +152,9 @@ func main() {
 			fmt.Println("[-] Looking: " + url)
 		}
 
-		data := reqhttp(url, c)
+		data := reqhttp(url, c,*timeout)
+		getLeak(url, data, c_patterns, lines, &jsonArray)
 
-		for _, pattern := range lines {
-			getLeak(url, data, pattern, &jsonArray)
-		}
 	}
 
 	if *jsonOutput != "" {
