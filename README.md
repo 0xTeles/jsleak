@@ -38,4 +38,4 @@ cat urls.txt | jsleak -pattern regex.txt
 - https://github.com/0x240x23elu/JSScanner
 - https://github.com/KaioGomesx/JSScanner
 ### Thanks
-[@fepame](https://twitter.com/Highustavo), [@gustavorobertux](https://twitter.com/gustavorobertux), [@Jhounx](https://github.com/Jhounx), [@arthurair_es](https://twitter.com/arthurair_es)
+[@fepame](https://twitter.com/Highustavo), [@gustavorobertux](https://twitter.com/gustavorobertux), [@Jhounx](https://github.com/Jhounx), [@arthurair_es](https://twitter.com/arthurair_es), [@le0nard01](https://github.com/le0nard01)
